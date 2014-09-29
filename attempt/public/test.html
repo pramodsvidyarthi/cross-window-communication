@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>my page</title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+	<div id="div">
+    <h1>Hello there node server</h1>
+    <p>hey again</p>
+    <ul id="listitem">
+    	<li>some list</li>
+    	<li>some list</li>
+    	<li>some list</li>
+    	<li>some list</li>
+    </ul>
+    <script type="text/template" id="temp">
+    <ul id="list">
+    	<li>some list</li>
+    	<li>some list</li>
+    	<li>some list</li>
+    	<li>some list</li>
+    </ul>
+    </script>
+	</div>
+
+    <button id="click">click to send</button>
+
+    <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="../node_modules/underscore/underscore.js"></script>
+    <script type="text/javascript" src="../node_modules/backbone/backbone.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var tosend = $('#div')[0].outerHTML;
+			var templ = $('#temp')[0].outerHTML;
+			console.log(templ);
+			$('#click').on('click',function(){
+				var newwin =  window.open("index2.html","abc");
+				var ele = $('h1').clone();
+				// var a = $('ele').append($('h1').clone());
+				console.log(typeof ele[0].outerHTML);
+				newwin.onload = function(){
+					newwin.postMessage(templ,"*");
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>

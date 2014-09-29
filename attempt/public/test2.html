@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>sometitle</title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <h1>Hello there wassup</h1>
+    <button id="close">pop-in</button>
+</body>
+<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+    var msg;
+    window.addEventListener("message", function(event) {
+        msg = event;
+    	var a = event.data
+        console.log(a);
+        $('body').append(event.data);
+    });
+
+    window.onbeforeunload = function (e) {
+    e = e || window.event;
+
+    // For IE and Firefox prior to version 4
+    if (e) {
+        msg.source.postMessage("closed","*");
+        // e.returnValue = 'Get back to main page';
+    }
+
+    // For Safari
+    // return 'Any string';
+};
+
+    $('#close').on('click',function(){
+        // msg.source.postMessage("closed","*");
+        window.close();
+    });
+});
+
+</script>
+
+</html>

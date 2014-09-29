@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>mainwindow</title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <div id="container">
+    <h1>postMessage with window.open()</h1>
+    <p>You will need to enable popups for this to work.</p>
+    <p id="data"></p>
+    <button onclick="openwindow()">click me</button>
+    </div>
+    <script type="text/javascript">
+    window.addEventListener("message", function(event) {
+        log("Sent a message to event.origin " + event.origin + " and got the following in response:");
+        log("<em>" + event.data + "</em>")
+    });
+    function openwindow(){
+    var a=[{
+        name:"pramod",
+        id:101
+    },
+    {
+        name:"abc",
+        id:102
+    },
+    {
+        name:"pqr",
+        id:103
+    }]
+    var other = window.open("other.html");
+    other.onload = function() {
+        other.postMessage(JSON.stringify(a), "http://localhost:8001/other.html");
+    };
+}
+
+    function log(message) {
+        document.getElementById("data").innerHTML += message + "<br /><br />";
+    }
+    </script>
+    <!-- <script src="ga.js" type="text/javascript"></script> -->
+
+</body>
+
+</html>

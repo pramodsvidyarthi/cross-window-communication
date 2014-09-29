@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>popedup window</title>
+</head>
+
+<body>
+
+    <script  type="text/template" id="view">
+        <li> <%= id %> <%= juridiction %> <%= assembly %> </li>
+    </script>
+
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/underscore/underscore.js"></script>
+    <script type="text/javascript" src="bower_components/backbone/backbone.js"></script>
+    <script type="text/javascript" src="otherdata.js"></script>
+
+    <script type="text/javascript">
+    var model1 = Backbone.Model.extend({});
+    var collection = Backbone.Collection.extend({model:model1});
+
+    var receivedmodel = Backbone.Model.extend({});
+    var receivedcollection = Backbone.Collection.extend({model:receivedmodel});
+    var receivedview = Backbone.View.extend({
+
+        tagName:'ul',
+
+        template:_.template($('#view').html()),
+
+        initialize:function(){
+            this.render();
+            $('body').append(this.$el);
+        },
+
+        render:function(){
+            // wont loop until its of type backbone collection.wont work with just any array
+            this.collection.each(function(model){
+                // this.$el.append(this.template(model.toJSON()));
+                // console.log(model.toJSON());
+                this.$el.append(this.template(model.toJSON()));
+                // console.log(a);
+            },this);
+        },
+
+    });
+
+
+    	var xyz = new collection(otherdata); 
+        var newarr = new collection({});
+
+    	window.addEventListener("message",function(event){
+    	var abc = JSON.parse(event.data);
+     //    var empty=[];
+    	// console.log(event);
+        xyz.each(function(model){
+            $.each(abc,function(index,value){
+                if(model.get('id') == value){
+                    // console.log(model);
+                    newarr.push(model);
+                }
+                else
+                    return;
+            })
+        })
+     //    _.each(abc,function(model){
+     //         empty.push(model);
+     //        console.log(_.object(["id","name","age"],model));
+     //    });
+
+
+        // var newarr = new collection({collection:thearray});
+        // newarr.add(thearray);
+        console.log(newarr.models);
+        newarr.reset(newarr.slice(1));  // remove the default first model
+        console.log(newarr.models);
+        var viewtoshow = new receivedview({collection:newarr});
+       
+    },false);
+         // xyz.each(function(model){
+         //    console.log(model.get('id'));       //use backbone each method to iterate over collection
+         // });
+
+       // console.log(viewtoshow.el);
+    </script>
+
+</body>
+</html>

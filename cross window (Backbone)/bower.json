@@ -1,0 +1,8 @@
+{
+	"name":"cross window",
+	"dependencies":{
+		"jquery":"latest",
+		"underscore":"latest",
+		"backbone":"latest"
+	}
+}

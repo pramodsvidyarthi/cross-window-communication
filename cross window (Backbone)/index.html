@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>My viewpage</title>
+	<link rel="stylesheet" href="">
+</head>
+<style>
+	li{
+		list-style-type: none;
+	}
+</style>
+<body>
+		
+	<p>send selected data to new window, click the button below</p>
+	<button id="send">SEND</button>
+
+	<script  type="text/template" id="view">
+		<li><input id="chkbox" type="checkbox" rel=<%= id %>> <%= id %> <%= name %> (<%= age %>) </li>
+	</script>
+
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="bower_components/underscore/underscore.js"></script>
+	<script type="text/javascript" src="bower_components/backbone/backbone.js"></script>
+	<script type="text/javascript" src="namedata.json"></script>
+	<script type="text/javascript" src="index.js"></script>
+
+</body>
+</html>
